@@ -1,0 +1,32 @@
+
+alias homework="ssh -Y wwei02@homework.eecs.tufts.edu"
+alias qb="ssh -Y wes946336@questionablebattleship.com"
+alias cap="ssh -Y -p 93 wesley@cap-tal.com"
+alias coffee="ssh -Y -p 93 wesley@coffeevoid.com"
+alias compute="ssh -Y -p 93 wesley@compute.weiwesley.com"
+alias composte="ssh -p 93 wesley@composte.me"
+alias wei="ssh -p 93 wesley@weiwesley.com"
+alias wes="ssh -p 93 wesley@weiwesley.com"
+
+alias weather='curl --silent http://wttr.in | head -n-3'
+
+export CFLAGS="-Wall -Wextra -pedantic -g -I${HOME}/include -L${HOME}/lib"
+export CXXFLAGS="-Wall -Wextra -std=c++14 -g -I${HOME}/include -L${HOME}/lib"
+
+export DJANGO_DEBUG=true
+
+# Fuuuuuuuuuuuuuuuuuck
+alias cs='ssh -p 93 -D 12345 wesley@compute.weiwesley.com'
+
+alias empty="find . -maxdepth 1 -type d -empty"
+alias batt="upower -i $(upower -e | grep BAT)"
+alias bin="cd ~/bin"
+alias dumpall="objdump -aDglefhts --special-syms"
+
+alias tree="tree -I .git -I '*pycache*'"
+
+# Goddammit
+alias temp=sensors
+
+# vim: filetype=sh:
+

@@ -1,0 +1,4 @@
+~/.bashrc | bashrc
+~/.bash_aliases | aliases
+~/.bash_logout | logout
+~/.bash_functions | functions

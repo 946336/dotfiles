@@ -1,0 +1,76 @@
+
+source "${HOME}/bin/common"
+
+thereal () {
+    if [ $# -eq 0 ]; then
+        echo -e "Usage: ${0} target"
+    fi
+
+    if [ "${1}" == "${FUNCNAME[0]}" ]; then
+        type "${FUNCNAME[0]}" | tail -n+2
+        return $?
+    fi
+
+    t=$(type "${1}" 2>&1)
+
+    # if false; then # ??????????????
+    #     echo -n ""
+    if echo "${t}" | grep -q "is aliased to"; then
+        alias "${1}"
+    elif echo "${t}" | grep -q "is a function"; then
+        type "${1}" | tail -n+2
+    else
+        w=$(which "${1}")
+        if [ -n $w ]; then
+            readlink -f "$w"
+        else
+            ls -AlF "$w" 2>/dev/null
+        fi
+    fi
+}
+
+tmp () {
+    if [ $# -eq 0 ]; then
+        tmpdir=$(make-temp -d)
+        pushd "${tmpdir}" > /dev/null 2>&1
+        "${EDITOR:-${VISUAL:-vim}}" `make-temp`
+    else
+        case "${1}" in
+            here)
+                ${EDITOR:-${VISUAL:-vim}} $( mktemp --tmpdir=$( pwd ) )
+                return $?
+                ;;
+            -h|--help|ls|grep|show|remove|clear)
+                ;;
+            go|new)
+                pushd "/tmp/${USER}" > /dev/null 2>&1
+                ;;
+            *)
+                echo -e "${0}: Unrecognized argument ${1}"
+                ;;
+        esac
+        "${HOME}/bin/tmp" $@
+    fi
+}
+
+count() {
+    if [ $# -lt 1 ]; then
+        echo "Usage: $0 [characters] [files]"
+    fi
+
+    chars="$1"; shift
+
+    while [ $# -gt 0 ]; do
+        n=$(tr -d -c "$chars" < "$1" | wc -c)
+        printf "%-15s \t(%s) %s\n" "$1" "$chars" "$n"
+        shift
+    done
+}
+
+leetcode() {
+    "${HOME}/bin/leetcode-setup"
+    vim solution.cpp +'vsplit test.cpp'
+}
+
+# vim: filetype=sh
+
