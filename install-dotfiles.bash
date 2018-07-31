@@ -118,10 +118,10 @@ for each in "${confs[@]}"; do
         # Invoke the installation script
         if has_shebang "$f"; then
             chmod u+x "$f"
-            env - DOTFILE_UPGRADE="$DOTFILE_UPGRADE" \
+            env DOTFILE_UPGRADE="$DOTFILE_UPGRADE" \
                 DOTFILE_VERBOSE="$DOTFILE_VERBOSE" "./$f"
         else
-            env - DOTFILE_UPGRADE="$DOTFILE_UPGRADE" \
+            env DOTFILE_UPGRADE="$DOTFILE_UPGRADE" \
                 DOTFILE_VERBOSE="$DOTFILE_VERBOSE" sh "$f"
         fi
 
