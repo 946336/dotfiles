@@ -36,7 +36,7 @@ provided.
 
 Rules have the following format:
 
-    { Destination } | { Configuration }
+    Destination | Configuration
 
 `Destination` should be an absolute path, but may contain `~`.
 
