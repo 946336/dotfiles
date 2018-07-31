@@ -1,8 +1,7 @@
 # Dotfiles
 
 This repository may contain some of my own configuration files. Unless you
-want them, you should fork this repository and remove everything except for
-`README` and `install-dotfiles.bash`. This script makes no effort to be
+want them, you should fork this repository. This script makes no effort to be
 race-condition free.
 
 I assume that the act of deploying configuration is idempotent. Thus, a
@@ -51,7 +50,7 @@ shebang. Otherwise, it is run by `sh`.
 `dotfile-install.sh` is executed from within its directory.
 
 When the tool is invoked with `--upgrade`, the environment variable
-`DOTFILE_UPGRADE` is set to 1.
+`DOTFILE_UPGRADE` is set to `1`.
 
 When the tool is invoked with `--verbose`, the environment variable
 `DOTFILE_VERBOSE` is set to `1`.
