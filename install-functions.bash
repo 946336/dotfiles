@@ -30,7 +30,7 @@ if_verbose() {
 }
 
 has_shebang() {
-    head -n1 "$1" | grep '^#!'
+    head -n1 "$1" | grep '^#!' >/dev/null
 }
 
 # Backup target file or directory with a name
