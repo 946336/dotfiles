@@ -132,7 +132,7 @@ fi
 stty -ixon
 
 # Thefuck
-if which thefuck; then
+if which thefuck > /dev/null; then
     eval $(thefuck --alias)
 fi
 
