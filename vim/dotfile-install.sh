@@ -2,31 +2,38 @@
 
 retval=0
 
+# Really?
+home=`echo ~`
 here=$(pwd)
 
-if [ ! -e "$HOME/.vimrc" ]: then
-    ln -s "$here/.vimrc" "$HOME"
+if [ ! -e "$home/.vimrc" ]; then
+    ln -s "$here/vimrc" "$home/.vimrc"
 fi
 
-mkdir -p "$HOME/.vim/bundle"
+if [ ! -e "$home/.gvimrc" ]; then
+    ln -s "$here/gvimrc" "$home/.gvimrc"
+fi
+
+mkdir -p "$home/.vim/bundle"
 
 # Install Vundle if it isn't there
-if [ ! -d $HOME/.vim/bundle/Vundle.vim ]; then
+if [ ! -d $home/.vim/bundle/Vundle.vim ]; then
     git clone https://github.com/VundleVim/Vundle.vim.git \
-        $HOME/.vim/bundle/Vundle.vim
+        $home/.vim/bundle/Vundle.vim
 fi
 
-vim +BundleInstall +qall
+# Really???
+HOME="$home" vim +BundleInstall +qall
 
 # For colorschemes
-mkdir -p "$HOME/.vim/colors"
-pushd $HOME/.vim/colors > /dev/null  2>&1
+mkdir -p "$home/.vim/colors"
+pushd $home/.vim/colors > /dev/null  2>&1
 
-if [ ! -e vim-kalisi ]: then
+if [ ! -e vim-kalisi ]; then
     ln -s ../bundle/vim-kalisi .
 fi
 
 popd > /dev/null  2>&1
 
-return $retval
+exit $retval
 

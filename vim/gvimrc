@@ -1,0 +1,13 @@
+set guioptions-=m
+set guioptions-=T
+set guioptions-=L
+set guioptions-=r
+
+nmap <leader>rc :tabedit ~/.gvimrc<CR>
+nmap <leader>RC :tabedit ~/.vimrc<CR>
+nmap <F5> :source ~/.vimrc<CR> :source ~/.gvimrc<CR>
+
+set guifont=Inconsolata-g\ for\ Powerline\ Medium\ 12
+
+colorscheme solarized
+
