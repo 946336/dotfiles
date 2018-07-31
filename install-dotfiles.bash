@@ -105,7 +105,7 @@ for each in "${confs[@]}"; do
 
     verb="Installing"
     if option_set "$DOTFILE_UPGRADE"; then verb="Upgrading"; fi
-    info "$verb $d"
+    info "$verb configuration for $d"
 
     if [ $f == "$install_script" ]; then
         # Run the installation script

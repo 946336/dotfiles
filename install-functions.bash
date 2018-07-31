@@ -48,16 +48,16 @@ backup_as() { # target name
     fi
 
     if [ ! -e "$target" ]; then
-        info "Nothing to backup"
+        if_verbose info "Nothing to backup"
     elif [ -d "$target" ]; then
-        info "Backing up directory $target as $name"
+        if_verbose info "Backing up directory $target as $name"
         tar cf "$name" -C / "${target#\/}"
     elif [ -f "$target" ]; then
-        info "Backing up file $target as $name"
+        if_verbose info "Backing up file $target as $name"
         tar cf "$name" -C / "${target#\/}"
     else
         listing="\t$(ls -lf "$target")\n\t$(file "$target")"
-        info "Backing up something strange: \n$listing"
+        if_verbose info "Backing up something strange: \n$listing"
         tar cf "$name" -C / "${target#\/}"
     fi
 }
@@ -69,7 +69,6 @@ backup_file() { # name
 
     local last="$name"
     if [[ ! -e "$name" ]]; then
-        >&2 echo "Inspecting $name"
         local i=1
         while [[ -e "$name.$i" ]]; do
             i=$((i + 1))
