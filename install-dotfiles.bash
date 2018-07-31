@@ -211,7 +211,7 @@ for each in "${confs[@]}"; do
             target=$(rule_target "$rule")
             name=$(rule_name "$rule")
 
-            if_verbose say "Linking from $name to $target"
+            if_verbose say "Linking from $name to $PWD/$target"
 
             dir=$(dirname "$name")
             if [[ "$dir" == "." ]]; then
@@ -244,5 +244,5 @@ for each in "${confs[@]}"; do
     popd >/dev/null
 done
 
-return $failure
+exit $failure
 

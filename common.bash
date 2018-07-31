@@ -1,5 +1,5 @@
 
-[[ -n $_DOTFILE_COMMON ]] && return || readonly $_DOTFILE_COMMON=1
+[[ -n $_DOTFILE_COMMON ]] && return || readonly _DOTFILE_COMMON=1
 
 link_locations="dotfile-links.txt"
 copy_locations="dotfile-copy.txt"

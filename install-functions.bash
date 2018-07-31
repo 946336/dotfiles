@@ -1,5 +1,5 @@
 
-[[ -n $_DOTFILE_INSTALL ]] && return || readonly $_DOTFILE_INSTALL=1
+[[ -n $_DOTFILE_INSTALL ]] && return || readonly _DOTFILE_INSTALL=1
 
 DOTFILE_VERBOSE=0
 DOTFILE_UPGRADE=0
@@ -35,8 +35,9 @@ has_shebang() {
 
 # Backup target file or directory with a name
 backup_as() { # target name
-    target="$1"
-    name="$DOTFILE_BACKUPDIR/$(basename "$2")"
+    local target="$1"
+    local name="$DOTFILE_BACKUPDIR/$(basename "$2")"
+    mkdir -p "$DOTFILE_BACKUPDIR"
 
     if [[ -e $name ]]; then
         i=1
@@ -46,7 +47,9 @@ backup_as() { # target name
         name="$name.$i"
     fi
 
-    if [ -d "$target" ]; then
+    if [ ! -e "$target" ]; then
+        info "Nothing to backup"
+    elif [ -d "$target" ]; then
         info "Backing up directory $target as $name"
         tar cz --file "$name" "$target"
     elif [ -f "$target" ]; then
@@ -60,9 +63,10 @@ backup_as() { # target name
 }
 
 backup_file() { # name
-    name="$DOTFILE_BACKUPDIR/$(basename "$1")"
+    local name="$DOTFILE_BACKUPDIR/$(basename "$1")"
+    mkdir -p "$DOTFILE_BACKUPDIR"
 
-    last="$name"
+    local last="$name"
     if [[ ! -e "$name" ]]; then
         i=1
         while [[ -e "$name.$i" ]]; do
@@ -81,23 +85,23 @@ backup_file() { # name
 }
 
 # Rollback to previous configuration
-rollback_to() { # name where_to
-    name=$(backup_file "$1")
-    where="$2"
+rollback_to() { # name where
+    local name=$(backup_file "$1")
+    local where="$2"
 
     info "Rolling back to configuration $name"
 
     rm -r "$where"
-    mkdir "$where"
-    pushd "$where" > /dev/null
+    # mkdir "$where"
+    # pushd "$where" > /dev/null
     tar xz --file "$name"
-    popd > /dev/null
+    # popd > /dev/null
 }
 
 # Print a list of available configurations
 configurations_available() {
     for d in */; do
-        dname=$(dirname "$(get_installation_instructions "$d")")
+        local dname=$(dirname "$(get_installation_instructions "$d")")
         if [ "$dname" != "." ]; then
             echo "$dname"
         fi
@@ -138,7 +142,7 @@ rule_target() {
 # $1: path to file to read
 # Returns: The number of invalid rules
 valid_rules_file() {
-    retval=0
+    local retval=0
     while read rule; do
         if [ -z "$rule" ]; then continue; fi
         if [ "${rule:0:1}" == "#" ]; then continue; fi
