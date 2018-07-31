@@ -33,17 +33,17 @@ error() {
     else
         failure=$(($failure + 1))
     fi
-    _red
-    echo -e -n "Error:"
-    reset_color
-    if [ $# -gt 0 ]; then echo -e " $@"; else echo -n " "; fi
+    (>&2 _red )
+    (>&2 echo -e -n "Error:")
+    (>&2 reset_color)
+    if [ $# -gt 0 ]; then (>&2  echo -e " $@" ); else (>&2 echo -n " "); fi
 }
 
 warning() {
-    _yellow
-    echo -e -n "Warning:"
-    reset_color
-    if [ $# -gt 0 ]; then echo -e " $@"; else echo -n " "; fi
+    ( >&2 _yellow)
+    ( >&2 echo -e -n "Warning:")
+    ( >&2 reset_color)
+    if [ $# -gt 0 ]; then ( >&2 echo -e " $@" ); else ( >&2 echo -n " " ); fi
 }
 
 bold() {
@@ -64,9 +64,9 @@ say() {
 }
 
 fail() {
-    _red
-    echo "$1"
-    reset_color
+    (>&2 _red)
+    (>&2 echo "$1")
+    (>&2 reset_color)
     ${cleanup-true}
     exit ${2:-1}
 }

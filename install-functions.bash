@@ -36,7 +36,7 @@ has_shebang() {
 # Backup target file or directory with a name
 backup_as() { # target name
     local target="$1"
-    local name="$DOTFILE_BACKUPDIR/$(basename "$2")"
+    local name="$(realpath "$DOTFILE_BACKUPDIR")/$(basename "$2")"
     mkdir -p "$DOTFILE_BACKUPDIR"
 
     if [[ -e $name ]]; then
@@ -51,24 +51,26 @@ backup_as() { # target name
         info "Nothing to backup"
     elif [ -d "$target" ]; then
         info "Backing up directory $target as $name"
-        tar cz --file "$name" "$target"
+        tar cf "$name" -C / "${target#\/}"
     elif [ -f "$target" ]; then
         info "Backing up file $target as $name"
-        tar cz --file "$name" "$target"
+        tar cf "$name" -C / "${target#\/}"
     else
         listing="\t$(ls -lf "$target")\n\t$(file "$target")"
         info "Backing up something strange: \n$listing"
-        tar cz --file "$name" "$target"
+        tar cf "$name" -C / "${target#\/}"
     fi
 }
 
 backup_file() { # name
-    local name="$DOTFILE_BACKUPDIR/$(basename "$1")"
+    local displayname="$1"
+    local name="$(realpath "$DOTFILE_BACKUPDIR")/$(basename "$1").tar.gz"
     mkdir -p "$DOTFILE_BACKUPDIR"
 
     local last="$name"
     if [[ ! -e "$name" ]]; then
-        i=1
+        >&2 echo "Inspecting $name"
+        local i=1
         while [[ -e "$name.$i" ]]; do
             i=$((i + 1))
             last="$name.$i"
@@ -77,25 +79,20 @@ backup_file() { # name
     fi
 
     if [[ ! -e "$name" ]]; then
-        error "Did not find any backups for configuration \"$name\":\n" \
-            "\tNo changes made"
+        if_verbose error "Did not find any backups for configuration " \
+            "\"$(basename "$displayname")\""
         return 1
     fi
     echo "$name"
 }
 
 # Rollback to previous configuration
-rollback_to() { # name where
+rollback_to() { # name
     local name=$(backup_file "$1")
-    local where="$2"
 
     info "Rolling back to configuration $name"
 
-    rm -r "$where"
-    # mkdir "$where"
-    # pushd "$where" > /dev/null
-    tar xz --file "$name"
-    # popd > /dev/null
+    tar xv --file "$name" -C /
 }
 
 # Print a list of available configurations
