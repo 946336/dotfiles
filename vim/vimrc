@@ -96,6 +96,8 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 
+Plugin 'idanarye/vim-merginal'
+
 " Plugin 'mustache/vim-mustache-handlebars.git'
 " Plugin 'pangloss/vim-javascript.git'
 
@@ -221,7 +223,7 @@ function! ToggleH()
 endfunction
 
 " set colorcolumn=81
-set colorcolumn=+1
+set colorcolumn=+1 " Relative to textwidth, I suppose
 highlight ColorColumn guibg=lightgrey ctermbg=darkgrey
 
 let s:activatedc = 1
@@ -285,6 +287,7 @@ function! s:goyo_leave()
 
     setlocal list
     setlocal textwidth=80
+    highlight ColorColumn guibg=lightgrey ctermbg=darkgrey
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()

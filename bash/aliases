@@ -8,7 +8,7 @@ alias composte="ssh -p 93 wesley@composte.me"
 alias wei="ssh -p 93 wesley@weiwesley.com"
 alias wes="ssh -p 93 wesley@weiwesley.com"
 
-alias weather='curl --silent http://wttr.in | head -n-3'
+alias weather='clear; curl --silent http://wttr.in | head -n-3'
 
 export CFLAGS="-Wall -Wextra -pedantic -g -I${HOME}/include -L${HOME}/lib"
 export CXXFLAGS="-Wall -Wextra -std=c++14 -g -I${HOME}/include -L${HOME}/lib"
