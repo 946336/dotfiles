@@ -142,5 +142,5 @@ source /usr/local/bin/virtualenvwrapper.sh
 
 export PATH="$HOME/.yarn/bin:$PATH"
 # added by Anaconda3 installer
-export PATH="/home/wesley/anaconda3/bin:$PATH"
+export PATH="$PATH:/home/wesley/anaconda3/bin"
 
