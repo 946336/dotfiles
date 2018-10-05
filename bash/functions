@@ -40,7 +40,7 @@ tmp () {
                 ${EDITOR:-${VISUAL:-vim}} $( mktemp --tmpdir=$( pwd ) )
                 return $?
                 ;;
-            -h|--help|ls|grep|show|remove|clear)
+            -h|--help|ls|grep|show|remove|clear|help)
                 ;;
             go|new)
                 pushd "/tmp/${USER}" > /dev/null 2>&1

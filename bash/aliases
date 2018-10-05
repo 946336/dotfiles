@@ -24,6 +24,7 @@ alias bin="cd ~/bin"
 alias dumpall="objdump -aDglefhts --special-syms"
 
 alias tree="tree -I .git -I '*pycache*'"
+alias less="less -r"
 
 alias p=python
 alias p3=python3
