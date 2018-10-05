@@ -95,11 +95,15 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-eunuch'
 
 Plugin 'idanarye/vim-merginal'
 
 " Plugin 'mustache/vim-mustache-handlebars.git'
 " Plugin 'pangloss/vim-javascript.git'
+
+" For C#
+Plugin 'OrangeT/vim-csharp'
 
 call vundle#end()
 
@@ -198,7 +202,9 @@ if has("autocmd")
 
     autocmd FocusGained  * checktime
 
-    autocmd FileType text,markdown,html highlight clear OverLength
+    autocmd FileType text,markdown,html exec "silent call ToggleH()"
+    autocmd FileType cs exec "silent call ToggleC()"
+    autocmd FileType cs exec "silent call ToggleH()"
 
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
@@ -224,7 +230,9 @@ endfunction
 
 " set colorcolumn=81
 set colorcolumn=+1 " Relative to textwidth, I suppose
-highlight ColorColumn guibg=lightgrey ctermbg=darkgrey
+if !has("gui_running")
+    highlight ColorColumn guibg=lightgrey ctermbg=darkgrey
+endif
 
 let s:activatedc = 1
 function! ToggleC()
@@ -287,7 +295,10 @@ function! s:goyo_leave()
 
     setlocal list
     setlocal textwidth=80
-    highlight ColorColumn guibg=lightgrey ctermbg=darkgrey
+
+    if !has("gui_running")
+        highlight ColorColumn guibg=lightgrey ctermbg=darkgrey
+    endif
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
