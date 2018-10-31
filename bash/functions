@@ -68,8 +68,51 @@ count() {
 }
 
 leetcode() {
-    "${HOME}/bin/leetcode-setup"
-    vim solution.cpp +'vsplit test.cpp'
+    if [ $# -gt 0 ]; then
+        case "$1" in
+            -h|--help)
+                echo "Usage: $FUNCTION problem-name"
+                echo "Create and switch to a new leetcode solution"
+                return 0
+                ;;
+        esac
+    fi
+
+    if [ $# -eq 0 ]; then
+        echo "Usage: $FUNCTION problem-name"
+        return 1
+    fi
+
+    cd "${HOME}/src/leetcode"
+    mkdir -p "$1"
+    cd "$1"
+
+    if [ -z "$(ls -A)" ]; then
+        "${HOME}/bin/leetcode-setup"
+        vim solution.cpp +'vsplit test.cpp'
+    else
+        if [ -r solution.cpp ] && [ -r test.cpp ]; then
+            vim solution.cpp +'vsplit test.cpp'
+        else
+            ls
+        fi
+    fi
+}
+
+mkcd() {
+    if [ $# -lt 1 ]; then
+        echo "Usage: $FUNCTION directory"
+        return 1
+    fi
+
+    case "$1" in
+        -h|--help)
+            echo "Usage: $FUNCTION directory"
+            return 0
+            ;;
+    esac
+
+    mkdir -p "$1" && cd "$1"
 }
 
 # vim: filetype=sh
