@@ -37,6 +37,7 @@ if ! option_set "$process_everything" && [ $# -eq 0 ]; then
     verb="install"
     if option_set "$DOTFILE_UPGRADE"; then verb="upgrade"; fi
     info "No configurations to $verb. Exiting."
+    info "Try $0 --help for help"
     exit 0
 fi
 

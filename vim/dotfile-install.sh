@@ -20,6 +20,9 @@ if [ ! -d $HOME/.vim/bundle/Vundle.vim ]; then
         $HOME/.vim/bundle/Vundle.vim
 fi
 
+mkdir -p "$HOME/.vim/swapfiles"
+mkdir -p "$HOME/.vim/backupfiles"
+
 vim +BundleInstall +qall
 
 # For colorschemes
