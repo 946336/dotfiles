@@ -1,0 +1,321 @@
+set termencoding=utf-8
+set encoding=utf-8
+set t_Co=256
+
+" Set for scratch
+set hidden
+
+set nocompatible
+filetype off
+
+let g:loaded_vimrc="no"
+if g:loaded_vimrc == "no" " Start conditional block =========================
+let g:loaded_vimrc="yes"
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Let Vundle manage itself
+Plugin 'VundleVim/Vundle.vim'
+
+" Plugin 'Valloric/YouCompleteMe'
+" let g:ycm_autoclose_preview_window_after_insertion=1
+" let g:ycm_confirm_extra_conf=0
+
+" Plugin 'rdnetto/YCM-Generator'
+
+Bundle 'freeo/vim-kalisi'
+Bundle 'altercation/vim-colors-solarized'
+
+Plugin 'vim-airline/vim-airline'
+let g:airline#extensions#tabline#enabled=1
+set laststatus=2
+" Causes problems with fonts rn
+let g:airline_powerline_fonts=1
+
+Plugin 'vim-airline/vim-airline-themes'
+
+" <leader>ig
+Plugin 'nathanaelkane/vim-indent-guides'
+
+" <leader>ww to select things
+Plugin 'wesQ3/vim-windowswap'
+
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-notes'
+
+let g:notes_suffix = '.md'
+let g:notes_smart_quotes = 0
+
+Plugin 'xolox/vim-session'
+let g:session_autosave='no'
+let g:session_autosave_periodic=5
+let g:session_command_aliases=1
+
+nnoremap <leader>so :OpenSession 
+nnoremap <leader>ss :SaveSession 
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
+
+" :Tabularize/=
+Plugin 'godlygeek/tabular'
+
+Plugin 'mtth/scratch.vim'
+
+" Plugin 'programble/itchy.vim'
+" let g:itchy_buffer_prefix='Scratch_'
+" let itchy_always_split=1
+" let g:itchy_split_derection=2
+
+" nnoremap <C-S> :Scratch<CR>
+" nnoremap <C-S><C-S> :ScratchNoSplit<CR>
+
+Plugin 'octol/vim-cpp-enhanced-highlight'
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+
+Plugin 'JiangMiao/auto-pairs'
+
+Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
+
+" Live markdown previews
+Plugin 'shime/vim-livedown'
+" Browser window should pop up
+let g:livedown_open = 1
+let g:livedown_port = 1337
+let g:livedown_browser = "chromium-browser"
+
+Plugin 'alvan/vim-closetag'
+let g:closetag_filenames = '*.html, *.xhtml,*.hbs'
+
+Plugin 'airblade/vim-gitgutter'
+
+" Tim Pope, ladies and mentlegen
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-eunuch'
+
+Plugin 'idanarye/vim-merginal'
+
+" Plugin 'mustache/vim-mustache-handlebars.git'
+" Plugin 'pangloss/vim-javascript.git'
+
+" For C#
+Plugin 'OrangeT/vim-csharp'
+
+call vundle#end()
+
+endif " End conditional block ====================================
+
+filetype plugin indent on
+
+try
+    colorscheme kalisi
+catch
+    echom "Colorscheme kalisi not found"
+endtry
+set background=dark
+
+" Move swap and backup files out of the current working directory, since this
+" is pretty much a one-man machine
+set directory=$HOME/.vim/swapfiles//
+set backupdir=$HOME/.vim/backupfiles//
+
+" Folds
+set foldmethod=syntax
+set foldlevelstart=999
+
+set wildmenu
+set wildmode=longest:full,full
+
+" Keymappings
+
+nmap <SPACE> <leader>
+
+noremap <leader>ts :%s/\s\+$//g<CR>
+noremap <leader>TS :%s/\s\+$//g<CR>``
+
+noremap <silent> <leader>rc :tabedit ~/.vimrc<CR>
+noremap <leader>j gT
+noremap <leader>k gt
+
+noremap <C-J> <C-E>
+noremap <C-K> <C-Y>
+
+imap <C-T> <ESC>xpa
+
+" nmap <C-UP> kddpk
+" nmap <C-DOWN> ddp
+
+" These will reformat/reindent on move, but are much slower
+nmap <silent> <C-UP> :<C-U>move-2<CR>==
+nmap <silent> <C-DOWN> :<C-U>move+<CR>==
+xmap <silent> <C-UP> :move-2<CR>gv=gv
+xmap <silent> <C-DOWN> :move'>+<CR>gv=gv
+
+noremap  <silent> <leader>t :set list lcs=tab:╾─,trail:·<CR>
+noremap  <silent> <leader>b :b#<CR>
+noremap  <silent> <leader>e :e<CR>
+
+" Insert line of = exactly the same length as current line
+nnoremap <silent> <leader>= yypVr=<CR>
+
+noremap <leader>fmt ggVG=``
+
+noremap <leader>o <ESC>:e %:r.
+
+noremap  <silent> <F2> :w<CR>
+inoremap <silent> <F2> <ESC>:w<CR>a
+
+noremap <silent> <F3> :set hlsearch<CR>:noh<CR>
+noremap <silent> <F4> :set hlsearch! hlsearch?<CR>
+noremap <silent> <F5> :source ~/.vimrc<CR>
+noremap <silent> <F6> :setlocal paste!<CR>
+noremap <silent> <F8> :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hlsearch<CR>
+
+noremap  <silent> <F10> :setlocal spell!<CR>
+inoremap <silent> <F10> <ESC>:setlocal spell!<CR>a
+
+set cursorline
+highlight CursorLine ctermbg=black cterm=None
+
+set autoread
+
+set number
+highlight LineNr ctermfg=grey
+
+set incsearch hlsearch ignorecase smartcase
+set textwidth=80 wrapmargin=0
+set splitright splitbelow
+set list lcs=tab:╾─,trail:·
+
+set expandtab shiftwidth=4 tabstop=4 softtabstop=4
+
+" Vim will load indentation rules and plugins according to the
+" detected filetype
+" from stackoverflow - use actual tab characters in Makefiles
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+    " Use filetype detection and file-based automatic indenting.
+    filetype plugin indent on
+
+    " Use actual tab chars in Makefiles.
+    autocmd FileType make setlocal noexpandtab
+
+    autocmd FocusGained  * checktime
+
+    autocmd FileType text,markdown,html exec "silent call ToggleH()"
+    autocmd FileType cs exec "silent call ToggleC()"
+    autocmd FileType cs exec "silent call ToggleH()"
+
+    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+endif
+
+" Highlighting and styling
+highlight OverLength ctermbg=darkred cterm=bold guibg=darkred
+match OverLength /\%81v.\+/
+
+let s:activatedh = 1
+function! ToggleH()
+    if s:activatedh == 0
+        let s:activatedh = 1
+        " highlight OverLength ctermbg=darkred cterm=bold guibg=darkred
+        match OverLength /\%81v.\+/
+    else
+        let s:activatedh = 0
+        match OverLength /$^/
+        " highlight clear OverLength
+    endif
+    echom "Highlighting: ".s:activatedh
+endfunction
+
+" set colorcolumn=81
+set colorcolumn=+1 " Relative to textwidth, I suppose
+if !has("gui_running")
+    highlight ColorColumn guibg=lightgrey ctermbg=darkgrey
+endif
+
+let s:activatedc = 1
+function! ToggleC()
+    if s:activatedc == 0
+        let s:activatedc = 1
+        " highlight ColorColumn guibg=darkred ctermbg=darkgrey
+        setlocal colorcolumn=+1
+    else
+        let s:activatedc = 0
+        setlocal colorcolumn=0
+        " highlight clear ColorColumn
+    endif
+endfunction
+
+noremap <silent> <leader>h :call ToggleH()<CR>
+noremap <silent> <leader>c :call ToggleC()<CR>
+
+" Set timing
+" Command sequences
+set timeoutlen=200
+" ???
+set ttimeoutlen=100
+
+set updatetime=100
+
+" Goyo stuff
+
+nnoremap <silent> <leader>g :Goyo<CR>
+nnoremap <silent> <leader>G :Goyo 120<CR>
+
+function! s:goyo_enter()
+    nnoremap j gj
+    nnoremap k gk
+    nnoremap ^ g^
+    nnoremap $ g$
+    nnoremap A g$a
+    nnoremap I g^i
+    inoremap <d <ESC>S-<ESC>vx37pa
+    setlocal nolinebreak noshowmode
+
+    set formatoptions+=a
+    set formatoptions+=w
+
+    setlocal nolist
+    setlocal textwidth=0
+    Limelight
+endfunction
+
+function! s:goyo_leave()
+    unmap j
+    unmap k
+    unmap ^
+    unmap $
+    unmap A
+    unmap I
+    iunmap <d
+    setlocal linebreak showmode
+
+    set formatoptions-=a
+    set formatoptions-=w
+
+    setlocal list
+    setlocal textwidth=80
+
+    if !has("gui_running")
+        highlight ColorColumn guibg=lightgrey ctermbg=darkgrey
+    endif
+    Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+" Let undo be smaller when writing large chunks of things, hopefully
+" autocmd FileType text,markdown inoremap . .<C-G>u
+" autocmd FileType text,markdown inoremap ? ?<C-G>u
+" autocmd FileType text,markdown inoremap ! !<C-G>u
+" autocmd FileType text,markdown inoremap , ,<C-G>u
+
+" inoremap ; ;<C-G>u
+
