@@ -115,7 +115,7 @@ filetype plugin indent on
 try
     colorscheme kalisi
 catch
-    echom "Colorscheme kalisi not found"
+
 endtry
 set background=dark
 
