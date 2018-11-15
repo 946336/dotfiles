@@ -149,7 +149,8 @@ if [ -r "${HOME}/.yarn" ]; then
     export PATH="$HOME/.yarn/bin:$PATH"
 fi
 
-if [ -r "${HOME}/anaconda3" ]
-# added by Anaconda3 installer
-export PATH="$PATH:${HOME}/anaconda3/bin"
+if [ -r "${HOME}/anaconda3" ]; then
+    # added by Anaconda3 installer
+    export PATH="$PATH:${HOME}/anaconda3/bin"
+fi
 

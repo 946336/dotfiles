@@ -2,3 +2,4 @@
 ~/.bash_aliases | aliases
 ~/.bash_logout | logout
 ~/.bash_functions | functions
+~/bin/common | common

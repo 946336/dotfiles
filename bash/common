@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+touch-dir () {
+    usage="Usage: ${0} dir"
+
+    case "${1}" in
+        -h|--help)
+            echo "${usage}"
+            return 0
+            ;;
+    esac
+
+    if [ ! -d "${0}" ]; then
+        mkdir -p "${1}"
+    fi
+}
+
+make-temp ()
+{
+    touch-dir "/tmp/${USER}"
+    mktemp --tmpdir="/tmp/${USER}" $@
+}
+
