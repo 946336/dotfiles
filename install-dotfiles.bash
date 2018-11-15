@@ -17,6 +17,10 @@ while [ $# -gt 0 ]; do
             shift
             DOTFILE_VERBOSE=1
             ;;
+        -l|--list)
+            configurations_available
+            exit 0
+            ;;
         --upgrade)
             shift
             DOTFILE_UPGRADE=1
@@ -38,6 +42,8 @@ if ! option_set "$process_everything" && [ $# -eq 0 ]; then
     if option_set "$DOTFILE_UPGRADE"; then verb="upgrade"; fi
     info "No configurations to $verb. Exiting."
     info "Try $0 --help for help"
+    info "Configurations available:"
+    configurations_available
     exit 0
 fi
 
