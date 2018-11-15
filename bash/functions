@@ -29,6 +29,15 @@ thereal () {
     fi
 }
 
+combine_with_dashes() {
+    local sep=""
+    while [ $# -gt 0 ]; do
+        echo "$sep$1"
+        local sep="-"
+        shift
+    done
+}
+
 tmp () {
     if [ $# -eq 0 ]; then
         tmpdir=$(make-temp -d)
@@ -89,7 +98,7 @@ leetcode() {
 
     if [ -z "$(ls -A)" ]; then
         "${HOME}/bin/leetcode-setup"
-        vim solution.cpp +'vsplit test.cpp'
+        vim solution.cpp +'vsplit test.cpp' +'execute "normal \<C-W>h"'
     else
         if [ -r solution.cpp ] && [ -r test.cpp ]; then
             vim solution.cpp +'vsplit test.cpp'

@@ -77,6 +77,7 @@ let g:cpp_experimental_template_highlight = 1
 Plugin 'JiangMiao/auto-pairs'
 
 Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
 
 " Live markdown previews
 Plugin 'shime/vim-livedown'
@@ -111,7 +112,11 @@ endif " End conditional block ====================================
 
 filetype plugin indent on
 
-colorscheme kalisi
+try
+    colorscheme kalisi
+catch
+    echom "Colorscheme kalisi not found"
+endtry
 set background=dark
 
 " Move swap and backup files out of the current working directory, since this
@@ -278,6 +283,7 @@ function! s:goyo_enter()
 
     setlocal nolist
     setlocal textwidth=0
+    Limelight
 endfunction
 
 function! s:goyo_leave()
@@ -299,6 +305,7 @@ function! s:goyo_leave()
     if !has("gui_running")
         highlight ColorColumn guibg=lightgrey ctermbg=darkgrey
     endif
+    Limelight!
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()

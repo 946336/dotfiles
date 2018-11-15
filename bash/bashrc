@@ -135,15 +135,21 @@ stty -ixon
 # set -o vi
 
 # Thefuck
-if which thefuck > /dev/null; then
+if which thefuck > /dev/null 2>&1; then
     eval $(thefuck --alias)
 fi
 
 # Virtualenv stuff
 
-source /usr/local/bin/virtualenvwrapper.sh
+if [ -r /usr/local/bin/virtualenvwrapper_lazy.sh ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
 
-export PATH="$HOME/.yarn/bin:$PATH"
+if [ -r "${HOME}/.yarn" ]; then
+    export PATH="$HOME/.yarn/bin:$PATH"
+fi
+
+if [ -r "${HOME}/anaconda3" ]
 # added by Anaconda3 installer
-export PATH="$PATH:/home/wesley/anaconda3/bin"
+export PATH="$PATH:${HOME}/anaconda3/bin"
 

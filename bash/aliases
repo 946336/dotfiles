@@ -11,6 +11,9 @@ alias wes="ssh -p 93 wesley@weiwesley.com"
 # Oof
 alias dss='ssh wwei02@47.94.165.155'
 
+# Bigger oof
+alias em2='ssh wesley@192.168.1.241'
+
 alias weather='clear; curl --silent http://wttr.in | head -n-3'
 
 export CFLAGS="-Wall -Wextra -pedantic -g -I${HOME}/include -L${HOME}/lib"
@@ -33,10 +36,12 @@ alias p=python
 alias p3=python3
 alias p2=python2
 alias ap="${HOME}/anaconda3/bin/python"
-alias pa="${ap}"
+alias pa="${HOME}/anaconda3/bin/python"
 
 # Goddammit
 alias temp=sensors
+
+alias wish="v $HOME/Nextcloud/Notes/Lists/wishlist.md"
 
 # vim: filetype=sh:
 
