@@ -154,3 +154,6 @@ if [ -r "${HOME}/anaconda3" ]; then
     export PATH="$PATH:${HOME}/anaconda3/bin"
 fi
 
+export VISUAL=vim
+export EDITOR=vim
+
