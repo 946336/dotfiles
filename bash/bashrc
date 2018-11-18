@@ -157,3 +157,9 @@ fi
 export VISUAL=vim
 export EDITOR=vim
 
+if [ -d ./shell.fragments.d/enabled ]; then
+    for fragment in ./shell.fragments.d/enabled/*.bash; do
+        [ -r "$fragment" ] && source "$fragment"
+    done
+fi
+

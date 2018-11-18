@@ -1,6 +1,7 @@
 set termencoding=utf-8
 set encoding=utf-8
 set t_Co=256
+syntax on
 
 " Set for scratch
 set hidden
