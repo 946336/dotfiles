@@ -7,12 +7,16 @@ alias compute="ssh -Y -p 93 wesley@compute.weiwesley.com"
 alias composte="ssh -p 93 wesley@composte.me"
 alias wei="ssh -p 93 wesley@weiwesley.com"
 alias wes="ssh -p 93 wesley@weiwesley.com"
+alias pie="ssh -p 22 pi@2601:641:300:476a:ac6c:ae28:4ae3:154f"
+
+alias vps="mosh --ssh='ssh -p 93'"
 
 # Oof
 alias dss='ssh wwei02@47.94.165.155'
 
 # Bigger oof
 alias em2='ssh wesley@192.168.1.241'
+alias user1='ssh user1@192.168.1.241'
 
 alias weather='clear; curl --silent http://wttr.in | head -n-3'
 
@@ -25,18 +29,20 @@ export DJANGO_DEBUG=true
 alias cs='ssh -p 93 -D 12345 wesley@compute.weiwesley.com'
 
 alias empty="find . -maxdepth 1 -type d -empty"
-alias batt="upower -i $(upower -e | grep BAT)"
+alias batt='upower -i $(upower -e | grep BAT)'
 alias bin="cd ~/bin"
 alias dumpall="objdump -aDglefhts --special-syms"
 
-alias tree="tree -I .git -I '*pycache*'"
+alias tree="tree -I .git -I CMakeFiles -I __pycache__"
 alias less="less -r"
 
-alias p=python
-alias p3=python3
-alias p2=python2
+alias p="python -q"
+alias p3="python3 -q"
+alias p2="python2 -q"
 alias ap="${HOME}/anaconda3/bin/python"
 alias pa="${HOME}/anaconda3/bin/python"
+alias ap3="${HOME}/anaconda3/bin/python3"
+alias pa3="${HOME}/anaconda3/bin/python3"
 
 # Goddammit
 alias temp=sensors

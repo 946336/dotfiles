@@ -157,6 +157,8 @@ fi
 export VISUAL=vim
 export EDITOR=vim
 
+export GOPATH="$HOME/dev/go:$HOME/src/third-party/go"
+
 if [ -d ./shell.fragments.d/enabled ]; then
     for fragment in ./shell.fragments.d/enabled/*.bash; do
         [ -r "$fragment" ] && source "$fragment"

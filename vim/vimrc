@@ -2,6 +2,7 @@ set termencoding=utf-8
 set encoding=utf-8
 set t_Co=256
 syntax on
+set backspace=2
 
 " Set for scratch
 set hidden
@@ -161,6 +162,8 @@ noremap  <silent> <leader>t :set list lcs=tab:╾─,trail:·<CR>
 noremap  <silent> <leader>b :b#<CR>
 noremap  <silent> <leader>e :e<CR>
 
+noremap <silent> <leader>l :Limelight!!<CR>
+
 " Insert line of = exactly the same length as current line
 nnoremap <silent> <leader>= yypVr=<CR>
 
@@ -208,11 +211,16 @@ if has("autocmd")
 
     autocmd FocusGained  * checktime
 
-    autocmd FileType text,markdown,html exec "silent call ToggleH()"
-    autocmd FileType cs exec "silent call ToggleC()"
-    autocmd FileType cs exec "silent call ToggleH()"
+    " autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+    autocmd FileType text,markdown,html,cs exec "silent call ToggleH()"
 
-    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+    " Let undo be smaller when writing large chunks of things, hopefully
+    autocmd FileType text,markdown inoremap . .<C-G>u
+    autocmd FileType text,markdown inoremap ? ?<C-G>u
+    autocmd FileType text,markdown inoremap ! !<C-G>u
+    autocmd FileType text,markdown inoremap , ,<C-G>u
+
+    inoremap ; ;<C-G>u
 
 endif
 
@@ -284,7 +292,7 @@ function! s:goyo_enter()
 
     setlocal nolist
     setlocal textwidth=0
-    Limelight
+    " Limelight
 endfunction
 
 function! s:goyo_leave()
@@ -306,17 +314,9 @@ function! s:goyo_leave()
     if !has("gui_running")
         highlight ColorColumn guibg=lightgrey ctermbg=darkgrey
     endif
-    Limelight!
+    " Limelight!
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-" Let undo be smaller when writing large chunks of things, hopefully
-" autocmd FileType text,markdown inoremap . .<C-G>u
-" autocmd FileType text,markdown inoremap ? ?<C-G>u
-" autocmd FileType text,markdown inoremap ! !<C-G>u
-" autocmd FileType text,markdown inoremap , ,<C-G>u
-
-" inoremap ; ;<C-G>u
 

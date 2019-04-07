@@ -80,8 +80,9 @@ leetcode() {
     if [ $# -gt 0 ]; then
         case "$1" in
             -h|--help)
-                echo "Usage: $FUNCTION problem-name"
+                echo "Usage: $FUNCTION problem-name language"
                 echo "Create and switch to a new leetcode solution"
+                echo "        Defaults to a python solution"
                 return 0
                 ;;
         esac
@@ -96,16 +97,30 @@ leetcode() {
     mkdir -p "$1"
     cd "$1"
 
-    if [ -z "$(ls -A)" ]; then
-        "${HOME}/bin/leetcode-setup"
-        vim solution.cpp +'vsplit test.cpp' +'execute "normal \<C-W>h"'
-    else
-        if [ -r solution.cpp ] && [ -r test.cpp ]; then
-            vim solution.cpp +'vsplit test.cpp'
-        else
-            ls
-        fi
-    fi
+    case "${2:-py}" in
+        cpp|c++)
+            if [ -z "$(ls -A *.cpp)" ]; then
+                "${HOME}/bin/leetcode-setup"
+                vim solution.cpp +'vsplit test.cpp' +'execute "normal \<C-W>h"'
+            else
+                if [ -r solution.cpp ] && [ -r test.cpp ]; then
+                    vim solution.cpp +'vsplit test.cpp' +'execute "normal \<C-W>h"'
+                else
+                    ls
+                fi
+            fi
+            ;;
+        python|py)
+            touch solution.py && \
+                if [ -z "$(ls -A *.py)" ]; then
+                    echo -e "#!/usr/bin/env python3\n" > solution.py
+                    chmod +x solution.py
+                fi
+                vim solution.py +'vert terminal' +'execute "normal \<C-W>h"' \
+                    +'execute "normal Gyyppk"'
+            ;;
+
+    esac
 }
 
 mkcd() {
@@ -122,6 +137,20 @@ mkcd() {
     esac
 
     mkdir -p "$1" && cd "$1"
+}
+
+# eg: linkpath vi
+# /usr/bin/vi -> /etc/alternatives/vi -> /usr/bin/vim.gtk
+linkpath(){
+    WHICH=$(/usr/bin/which "$1")
+
+    while [ -L "$WHICH" ];
+    do
+        echo  -n "$WHICH -> "
+        WHICH=$(readlink "$WHICH")
+    done
+
+    echo "$WHICH"
 }
 
 # vim: filetype=sh
