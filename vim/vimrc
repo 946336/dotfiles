@@ -107,6 +107,8 @@ Plugin 'idanarye/vim-merginal'
 " For C#
 Plugin 'OrangeT/vim-csharp'
 
+Plugin 'vim-scripts/nginx.vim'
+
 call vundle#end()
 
 endif " End conditional block ====================================

@@ -50,5 +50,9 @@ fi
 
 popd > /dev/null  2>&1
 
+# Set font?
+echo "xterm*font: Liberation\\ Mono\\ for\\ Powerline\\ Regular-12" \
+    >> ~/.Xresources
+
 exit $retval
 
