@@ -3,3 +3,10 @@
 ~/.bash_logout | logout
 ~/.bash_functions | functions
 ~/bin/common | common
+~/bin/abbr | bin/abbr
+~/bin/e | bin/e
+~/bin/v | bin/v
+~/bin/s | bin/s
+~/bin/gv | bin/gv
+~/bin/tmp | bin/tmp
+~/bin/symlinks | bin/symlinks

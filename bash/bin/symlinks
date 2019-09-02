@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+all=
+
+usage() {
+    echo -e "$(basename ${0}): Display symbolic links and their targets"
+    echo -e "$(basename ${0}) [Directory]"
+    exit $1
+}
+
+while [ $# -gt 0 ]; do
+
+    case "${1}" in
+        -h|--help)
+            usage 0
+            shift
+            ;;
+        -a|--all)
+            all=yes
+            echo "Option ${1} not implemented, but reserved for future use"
+            shift
+            ;;
+        *)
+            cd "${1}"
+            shift
+            ;;
+    esac
+
+done
+
+for file in *; do
+
+    target=
+    end_of_the_line=
+
+    if [ -h "${file}" ]; then
+        target="$(readlink "${file}")"
+        echo -ne "${file} -> ${target}"
+
+        end_of_the_line="$(readlink -f "${target}")"
+        target="${target%%/}"
+        end_of_the_line="${end_of_the_line%%/}"
+        if [[ "${target}" != "${end_of_the_line}" ]]; then
+            echo -ne " --> ${end_of_the_line}"
+        fi
+
+        echo
+    fi
+
+done
+

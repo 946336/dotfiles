@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+tmpdir="/tmp/${USER}"
+
+source common
+
+usage () {
+    echo -e "Usage: $(basename ${0}) [ COMMAND ]"
+    echo -e "Where COMMAND is one of the following:"
+    echo -e "Some commands require an argument"
+    echo -e "\tclear"
+    echo -e "\tremove victim"
+    echo -e "\tnew [ tmpfile ]"
+    echo -e "\tsearch regex"
+    echo -e "\tgrep regex"
+    echo -e "\tgo"
+    echo -e "\tshow"
+    echo -e "\tls"
+    echo -e "If no command is specified, new is assumed"
+    exit ${1:-0}
+}
+
+touch-dir "${tmpdir}"
+
+if [ $# -eq 0 ]; then
+    pushd "${tmpdir}" > /dev/null 2>&1
+    tmpfile="$(mktemp)"
+    "${EDITOR:-${VISUAL:-vim}}" "${tmpfile}"
+    exit 0
+fi
+
+case "${1}" in
+    -h|--help|help)
+        usage 0
+        ;;
+    clear)
+        shift
+        rm_flags="-r"
+        if [ "${1}" == "force" ]; then
+            rm_flags="${flags}f"
+        fi
+        rm "${rm_flags}" "${tmpdir}"
+        ;;
+    remove)
+        shift
+        rm -rf "${tmpdir}/${1}"
+        ;;
+    new)
+        shift
+        pushd "${tmpdir}" > /dev/null 2>&1
+        "${VISUAL:-${EDITOR:-vim}}" "${1:-$(mktemp)}"
+        ;;
+    search)
+        shift
+        find "${tmpdir}" -iregex ".*${1}.*" -user "${USER}"
+        ;;
+    grep)
+        shift
+        grep --ignore-case --recursive --with-filename --line-number\
+            --initial-tab --color=always "--regexp=${1}" "${tmpdir}"
+        ;;
+    go)
+        echo "${tmpdir}"
+        ;;
+    ls)
+        ls -CF --color "${tmpdir}"
+        ;;
+    show)
+        echo "${tmpdir}"
+        ls -alFh --color "${tmpdir}"
+        ;;
+esac
+

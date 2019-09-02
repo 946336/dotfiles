@@ -7,7 +7,7 @@ alias compute="ssh -Y -p 93 wesley@compute.weiwesley.com"
 alias composte="ssh -p 93 wesley@composte.me"
 alias wei="ssh -p 93 wesley@weiwesley.com"
 alias wes="ssh -p 93 wesley@weiwesley.com"
-alias pie="ssh -p 22 pi@2601:641:300:476a:ac6c:ae28:4ae3:154f"
+alias pie="ssh -p 22 pi@2601:641:300:476a:ac6c:ae28:4ae3:154f -Y"
 
 alias vps="mosh --ssh='ssh -p 93'"
 

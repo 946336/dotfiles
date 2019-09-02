@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+stderr() {
+    echo -e ${@} 1>&2
+}
+
+usage() {
+    stderr "Usage: $0 [--literal] abbreviation"
+    stderr "Expand a custom abbreviation"
+    stderr "\t--literal\t Don't expand this abbreviation"
+}
+
+if [ $# -eq 0 ]; then
+    usage
+    exit 0
+fi
+
+case "$1" in
+    --literal|-l) echo ${@} ;;
+    --help|-h) usage; echo ${@} ;;
+    brc) echo "${HOME}/.bashrc" ;;
+    ba) echo "${HOME}/.bash_aliases" ;;
+    bf) echo "${HOME}/.bash_functions" ;;
+    vrc) echo "${HOME}/.vimrc" ;;
+    gvrc) echo "${HOME}/.gvimrc" ;;
+    *) echo ${@} ;;
+esac
+

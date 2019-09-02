@@ -110,6 +110,9 @@ Plugin 'OrangeT/vim-csharp'
 
 Plugin 'vim-scripts/nginx.vim'
 
+" EBNF grammar syntax highlighting
+Plugin 'vim-scripts/ebnf.vim.git'
+
 call vundle#end()
 
 endif " End conditional block ====================================
