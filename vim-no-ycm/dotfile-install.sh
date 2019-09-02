@@ -4,6 +4,12 @@ retval=0
 
 here=$(pwd)
 
+if [ -z "$(which git)" ]; then
+    echo "git not found. Installation requires git"
+    retval=1
+    exit retval
+fi
+
 if [ ! -e "$HOME/.vimrc" ]; then
     ln -s "$here/vimrc" "$HOME/.vimrc"
 fi
@@ -11,6 +17,15 @@ fi
 if [ ! -e "$HOME/.gvimrc" ]; then
     ln -s "$here/gvimrc" "$HOME/.gvimrc"
 fi
+
+# Install powerline fonts
+pushd $(mktemp -d)
+
+git clone https://github.com/powerline/fonts.git
+cd fonts
+./install.sh
+
+popd
 
 mkdir -p "$HOME/.vim/bundle"
 
@@ -34,6 +49,10 @@ if [ ! -e vim-kalisi ]; then
 fi
 
 popd > /dev/null  2>&1
+
+# Set font?
+echo "xterm*font: Liberation\\ Mono\\ for\\ Powerline\\ Regular-12" \
+    >> ~/.Xresources
 
 exit $retval
 
